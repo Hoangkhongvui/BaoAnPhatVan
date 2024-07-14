@@ -135,21 +135,21 @@
                                 <tbody>
                                     
                                     <% if (posts) { %>
-                                        <% for (var i = 0; i < posts.length; i++) { %>
+                                        <% posts.forEach(function(post) { %>
                                             <tr>
-                                                <td><%= posts[i].id %></td>
-                                                <td><%= posts[i].title %></td>
-                                                <td><%= posts[i].content %></td>
-                                                <td><%= posts[i].author %></td>
-                                                <td><%= posts[i].img %></td>
-                                                <td><%= posts[i].createdAt %></td>
-                                                <td><%= posts[i].updatedAt %></td>
+                                                <td><%= post.id %></td>
+                                                <td><%= post.title %></td>
+                                                <td><%= post.content %></td>
+                                                <td><%= post.author %></td>
+                                                <td><%= post.img %></td>
+                                                <td><%= post.createdAt %></td>
+                                                <td><%= post.updatedAt %></td>
                                                 <td>
                                                     <a href="" class="btn btn-primary">Edit</a>
                                                     <a href="" class="btn btn-danger">Delete</a>
                                                 </td>
                                             </tr>
-                                        <% } %>
+                                        <% }); %>
                                     <% } %>
                                 </tbody>
                             </table> 

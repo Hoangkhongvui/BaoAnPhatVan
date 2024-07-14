@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
-var user_md = require("../models/User");
-var user = require("../models/User");
+var user_md = require("../models/Users");
+var user = require("../models/Users");
 var post_md=require('../models/Post');
 var app = require ("express");
 var helper =  require("../helpers/helpers");
@@ -79,20 +79,20 @@ router.post("/signin",function(req,res){
         if(data){
             data.then(function(users){
                 var user=users[0];
-                var dataPost1 = post_md.getAllPost();
+                var data = post_md.getAllPost();
               
                 
                 var status=helper.compare_password(params.password,user.password);
                 // console.log(status);
                 // console.log(params.password);
                 // console.log(user.password);
-                console.log(dataPost1);
+                // console.log(data);
                 if(!status){
                     res.render("signin",{data:{error:"sai mat khau hoac email "}});
                 }else{
-                    dataPost1.then(function(posts){
+                    
                         res.redirect("/admin/");
-                    })
+                    
                     // res.render("admin/post",dataPost2);
                     
                 }
