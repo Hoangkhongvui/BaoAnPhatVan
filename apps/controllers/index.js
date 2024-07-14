@@ -1,7 +1,7 @@
 const express = require('express');
 var router = express.Router();
-var user_md = require("../models/Users");
-var user = require("../models/Users");
+
+
 
 
 

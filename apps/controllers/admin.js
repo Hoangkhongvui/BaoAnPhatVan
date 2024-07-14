@@ -1,7 +1,6 @@
 var express = require('express');
 var router = express.Router();
 var user_md = require("../models/Users");
-var user = require("../models/Users");
 var post_md=require('../models/Post');
 var app = require ("express");
 var helper =  require("../helpers/helpers");
@@ -19,7 +18,7 @@ router.get("/",function(req,res){
             posts:posts,
             error:false
         };
-         console.log('data:',data);
+        //  console.log('data:',data);
         res.render("admin/post",data);
     }).catch(function(err){
         res.render("admin/post",{data: {error:"Get post data is error"}});
@@ -106,7 +105,7 @@ router.post("/signin",function(req,res){
 
 });
 router.get("/home/new",function(req,res){
-    res.render("admin/home/new",{data:{erro:false}});
+    res.render("admin/home/new",{data:{error:false}});
 });
 
 
