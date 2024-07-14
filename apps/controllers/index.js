@@ -1,17 +1,17 @@
 const express = require('express');
 var router = express.Router();
-var user_md = require("../models/user");
-var user = require("../models/user");
+var user_md = require("../models/User");
+var user = require("../models/User");
 
 
 
 var router = express.Router();
 router.use("/admin",require(__dirname + "/admin.js"));
 router.use("/blog",require(__dirname + "/blog.js"));
-router.use("/product",require(__dirname + "/product.js"));
-router.use("/sreach",require(__dirname + "/sreach.js"));
+router.use("/Product",require(__dirname + "/Product.js"));
+router.use("/search",require(__dirname + "/search.js"));
 
-const {GetIndex} = require ("../models/products");
+const {GetIndex} = require ("../models/Products");
 
 
 router.get("/", function(req, res) {

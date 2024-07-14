@@ -2,9 +2,9 @@ var q = require("q");
 const express = require('express');
 var db = require("../common/database");
 var conn = db.getConnection();
-const { Getproducts } = require('../models/products');
+const { Getproducts } = require('../models/Products');
 var router = express.Router();
-const { GetSearch } = require("../models/products");
+const { GetSearch } = require("../models/Products");
 // router.get("/", function(req, res) {
 //     Getproducts()
 //         .then((result) => {
