@@ -108,6 +108,65 @@ router.get("/home/new",function(req,res){
     res.render("admin/home/new",{data:{error:false}});
 });
 
+router.post("/home/new",function(req,res){
+    var params = req.body;
+    var now = new Date();
+    params.createdAt = now;
+    params.updatedAt = now;
+    
+    var data = post_md.addPost(params);
+    // console.log(data);
+    data.then(function(result){
+        redirect("/admin");
+    }).catch(function(err){
+        var data={
+            error:"Không thể thêm posts"
+        };
+        res.render("admin/home/new",{data:data});
+    });
+}); 
+router.get("/home/edit/:id",function(req,res){
+    var params = req.params;
+    var id = params.id;
+     
+    var data = post_md.getPostByID(id);
+    if(data){
+        data.then(function(posts){
+            var post = posts[0];
+            var data = {
+                post : post,
+                error : false
+            };
+            res.render("admin/home/edit",{data:data});
+        }).catch(function(err){
+            var data = {
+                error : "Could not Post by ID"
+            };
+            res.render("admin/home/edit",{data:data});
+        });
+        
+    }else{
+        var data = {
+            error : "Could not Post by ID"
+        };
+        res.render("admin/home/edit",{data:data});
+    }
+});
+router.put("/home/edit",function(req,res){
+    var params = req.body;
+    data = post_md.updatePost(params);
+    if(!data){
+        res.json({status_code:500});
+    }else{
+        data.then(function(result){
+            res.json({status_code: 200});
+
+        }).catch(function(err){
+            res.json({status_code:500});
+        });
+    }
+});
+
 
 
 module.exports = router;

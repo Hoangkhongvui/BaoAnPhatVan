@@ -68,24 +68,27 @@
 
             <div class="tab-content rounded-bottom" style="width: 650px">
                 <div class="tab-pane p-3 active preview" role="tabpanel" id="preview-1006">
-                    <div class="mb-3">
-                        <label class="form-label" for="formFile">Tiêu Đề</label>
-                        <input class="form-control" name="title" placeholder="Title">
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label" for="formFile">Nội Dung</label>
-                        <textarea class="form-control" name="title" placeholder="Content"></textarea>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label" for="formFile">Tình Trạng Hàng</label>
-                        <input class="form-control" name="title" placeholder="Title">
-                    </div>
+                    <form role="form" method="POST" action="/admin/home/new">
 
-                    <div class="mb-3">
-                        <label class="form-label" for="formFileSm">Hình Ảnh</label>
-                        <input class="form-control form-control-sm" id="formFileSm" type="file">
-                    </div>
-                    <input type="submit" name="" value="Thêm" class="btn btn-success">
+                        <div class="mb-3">
+                            <label class="form-label" for="formFile">Tiêu Đề</label>
+                            <input class="form-control" name="title" placeholder="Title">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="formFile">Nội Dung</label>
+                            <textarea class="form-control" name="content" placeholder="Content"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="formFile">Tình Trạng Hàng</label>
+                            <input class="form-control" name="author" placeholder="Title">
+                        </div>
+    
+                        <div class="mb-3">
+                            <label class="form-label" for="formFileSm">Hình Ảnh</label>
+                            <input class="form-control form-control-sm" name="img" id="formFileSm" type="file" accept="image/*">
+                        </div>
+                        <input type="submit" name="" value="Thêm" class="btn btn-success">
+                    </form>
                 </div>
             </div>
         </div>
