@@ -5,18 +5,8 @@ var conn = db.getConnection();
 const { Getproducts } = require('../models/Products');
 var router = express.Router();
 const { GetSearch } = require("../models/Products");
-// router.get("/", function(req, res) {
-//     Getproducts()
-//         .then((result) => {
-           
-//             // Xử lý kết quả ở đây, ví dụ: render view hoặc trả về dữ liệu JSON
-//             res.render("products", { Allproducts: result });
-//         })
-//         .catch((err) => {
-//             console.error("Lỗi khi lấy dữ liệu sản phẩm:", err);
-//             res.status(500).send("Lỗi khi lấy dữ liệu sản phẩm");
-//         });
-// });
+
+
 
 
 router.get("/index", function(req, res) {
@@ -25,18 +15,15 @@ router.get("/index", function(req, res) {
 // Thêm route tìm kiếm
 
 
-
-
 router.get("/", function(req, res){
     const _tensp = req.query.tensp || ''; 
     GetSearch(_tensp)
-    ///
+   
     Getproducts()
     .then(async (result) => {   
-        // console.log(result);
-        // console.log(result.length);
+       
         let _page = req.query.page ? parseInt(req.query.page) : 1; // Chuyển _page thành số nguyên
-        // console.log("Số trang:", _page);
+       
         const _limit = 9;
         const totalItems = result.length;
         const totalPage = Math.ceil(totalItems / _limit);

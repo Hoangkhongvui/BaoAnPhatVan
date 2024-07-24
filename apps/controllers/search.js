@@ -22,8 +22,7 @@ router.get('/', function(req, res) {
         .then(async (result) =>{
             
             let _page = req.query.page ? parseInt(req.query.page) : 1; // Chuyển _page thành số nguyên
-            // console.log("Số trang:", _page);
-
+            
             const _limit = 9;
             const totalItems = result.length;
             const totalPage = Math.ceil(totalItems / _limit);
@@ -32,7 +31,7 @@ router.get('/', function(req, res) {
             const _start = (_page - 1) * _limit;
             const currentPageItems = result.slice(_start, _start + _limit);
             // Nếu có kết quả tìm kiếm, hiển thị danh sách sản phẩm
-            // console.log(result);
+           
             res.render('products', { 
                 _tensp: _tensp,
                 title: 'Kết quả tìm kiếm',
@@ -41,7 +40,7 @@ router.get('/', function(req, res) {
                 Allproducts: currentPageItems,
                 
             });
-            console.log(_tensp)
+            
             
         })
         .catch((err) => {
