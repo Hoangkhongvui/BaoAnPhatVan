@@ -3,6 +3,7 @@ var config = require("config");
 var bodyParser= require("body-parser");
 var session =require("express-session")
 
+
 var app = express();
 //bodyParser
 app.use(bodyParser.json());
@@ -20,6 +21,9 @@ app.set("views", __dirname + "/apps/views");
 app.set("view engine", "ejs");
 //Static folder
 app.use("/static",express.static(__dirname + "/public"));
+app.use('/apps', express.static(__dirname + '/apps'));
+
+
 
 var controllers = require(__dirname + "/apps/controllers");
 

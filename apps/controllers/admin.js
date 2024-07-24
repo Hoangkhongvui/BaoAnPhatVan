@@ -10,58 +10,24 @@ const bcrypt =require ("bcrypt");
 
 
 router.get("/",function(req,res){
-    // res.json({"message":"this is Admin"});
+
     var data = post_md.getAllPost();
     data.then(function(posts){
-        // console.log(posts);
+
         var data={
             posts:posts,
             error:false
         };
-        //  console.log('data:',data);
         res.render("admin/post",data);
     }).catch(function(err){
         res.render("admin/post",{data: {error:"Get post data is error"}});
     });
-    
-    
 });
+
+
 router.get("/index",function(req,res){
     res.render("index",{data:{}});
-    // res.json({"message": "signin"});
 });
-
-
-
-
-// router.post("/signup", function (req, res) {
-//     var user = req.body;
-//     if (user.email.trim().length == 0) {
-//         res.render("signup", { data: { error: "Email is required" } });
-//     }
-//     if (user.passwd != user.repasswd && user.passwd.trim().length != 0) {
-//         res.render("signup", { data: { error: "Password is required" } });
-//     }
-//    //insert into Db
-// //    var password = helper.hash_password(user.password);
-    
-//     const hash_password = bcrypt.hashSync(user.password,10);
-
-//     user={
-//         username: user.username,
-//         email:user.email,
-//         password:hash_password,
-//     };
-
-//     var result = user_md.addUser(user);
-    
-//     result.then(function(data){
-//         res.redirect("/admin/signin");
-//     }).catch(function(err){
-//         res.render("signup", { data: { error: " Db" } });
-//     });
-   
-// });
 router.get("/signin",function(req,res){
     res.render("signin",{data:{}});
 });
@@ -79,21 +45,13 @@ router.post("/signin",function(req,res){
             data.then(function(users){
                 var user=users[0];
                 var data = post_md.getAllPost();
-              
-                
                 var status=helper.compare_password(params.password,user.password);
-                // console.log(status);
-                // console.log(params.password);
-                // console.log(user.password);
-                // console.log(data);
+               
                 if(!status){
                     res.render("signin",{data:{error:"sai mat khau hoac email "}});
                 }else{
                     
                         res.redirect("/admin/");
-                    
-                    // res.render("admin/post",dataPost2);
-                    
                 }
             });
 
@@ -104,8 +62,88 @@ router.post("/signin",function(req,res){
    
 
 });
+
 router.get("/home/new",function(req,res){
     res.render("admin/home/new",{data:{error:false}});
+});
+
+router.post("/home/new",function(req,res){
+    var params = req.body;
+    var now = new Date();
+    params.createdAt = now;
+    params.updatedAt = now;
+    
+    var data = post_md.addPost(params);
+    data.then(function(result){
+        res.redirect("/admin");
+    }).catch(function(err){
+        var data={
+            error:"Không thể thêm posts"
+        };
+        res.render("admin/home/new",{data:data});
+    });
+});
+
+router.get("/home/edit/:id",function(req,res){
+    var params = req.params;
+    var id = params.id;
+     
+    var data = post_md.getPostByID(id);
+    if(data){
+        data.then(function(posts){
+            var post = posts[0];
+            var data = {
+                post : post,
+                error : false
+            };
+            res.render("admin/home/edit",{data:data});
+        }).catch(function(err){
+            var data = {
+                error : "Could not Post by ID"
+            };
+            res.render("admin/home/edit",{data:data});
+        });
+        
+    }else{
+        var data = {
+            error : "Could not Post by ID"
+        };
+        res.render("admin/home/edit",{data:data});
+    }
+});
+
+router.post("/home/edit/:id",function(req,res){
+    var params = req.body;
+    data = post_md.updatePost(params);
+    if(!data){
+        res.json({status_code:500});
+    }else{
+        data.then(function(result){
+            res.redirect("/admin/")
+        }).catch(function(err){
+            res.json({status_code:500});
+            res.render("admin/home/edit",{data:data});
+        });
+        
+    }
+});
+
+router.delete("/home/delete",function(req,res){
+    var post_id = req.body.id;
+    console.log('Delete post with ID:', post_id);
+    var data = post_md.deletePost(post_id);
+    if(!data){
+        res.json({status_code:500});
+    }else{
+        data.then(function(result){
+            res.json({ status_code: 200 });
+            
+        }).catch(function(err){
+            res.json({status_code:500});
+            res.render("/admin/",{data:data});
+        });
+        
+    }
 });
 
 

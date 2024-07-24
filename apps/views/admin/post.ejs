@@ -44,6 +44,7 @@
         integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>       
 
 </head>
 
@@ -75,19 +76,20 @@
             <div class="table-responsive">
                 <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
                     <div class="row">
-                      
+
                         <div class="col-sm-12 col-md-6">
                             <div id="dataTable_filter" class="dataTables_filter"><label>Search:<input type="search"
                                         class="form-control form-control-sm" placeholder=""
                                         aria-controls="dataTable"></label></div>
                         </div>
-                        
-                    </div>
-                    <div class="row" style="position: absolute;left: 1422px;bottom:280px;">
-                        <div class="col-sm-12">
-                            <a href="/admin/home/new" class="btn btn-success pull-right">Thêm Bài </a>
+
+                        <div class="addpost" style="padding: 10px;">
+                            <div class="col-sm-12">
+                                <a href="/admin/home/new" class="btn btn-success pull-right">Thêm Bài </a>
+                            </div>
                         </div>
                     </div>
+
                     <div class="row">
                         <div class="col-sm-12">
                             <table class="table table-bordered dataTable" id="dataTable" width="100%" cellspacing="0"
@@ -112,54 +114,72 @@
                                             style="width: 30.2px;">Tình trạng
                                         </th>
                                         <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
-                                        colspan="1" aria-label="Age: activate to sort column ascending"
-                                        style="width: 90.2px;">Hình Ảnh
+                                            colspan="1" aria-label="Age: activate to sort column ascending"
+                                            style="width: 90.2px;">Hình Ảnh
                                         </th>
                                         <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                             colspan="1" aria-label="Start date: activate to sort column ascending"
-                                            style="width: 72.2px;">Create Time 
+                                            style="width: 72.2px;">Create Time
                                         </th>
                                         <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                             colspan="1" aria-label="Salary: activate to sort column ascending"
-                                            style="width: 66.2px;">Update Time 
+                                            style="width: 66.2px;">Update Time
                                         </th>
                                         <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                             colspan="1" aria-label="Salary: activate to sort column ascending"
-                                            style="width: 66.2px;">Hoạt Động 
+                                            style="width: 66.2px;">Hoạt Động
                                         </th>
-                                            
+
 
                                     </tr>
                                 </thead>
-                              
+
                                 <tbody>
-                                    
+
                                     <% if (posts) { %>
                                         <% posts.forEach(function(post) { %>
                                             <tr>
-                                                <td><%= post.id %></td>
-                                                <td><%= post.title %></td>
-                                                <td><%= post.content %></td>
-                                                <td><%= post.author %></td>
-                                                <td><%= post.img %></td>
-                                                <td><%= post.createdAt %></td>
-                                                <td><%= post.updatedAt %></td>
                                                 <td>
-                                                    <a href="" class="btn btn-primary">Edit</a>
-                                                    <a href="" class="btn btn-danger">Delete</a>
+                                                    <%= post.id %>
+                                                </td>
+                                                <td>
+                                                    <%= post.title %>
+                                                </td>
+                                                <td>
+                                                    <%= post.content %>
+                                                </td>
+                                                <td>
+                                                    <%= post.status %>
+                                                </td>
+                                                <td>
+                                                    <%= post.img %>
+                                                </td>
+                                                <td>
+                                                    <%= post.createdAt %>
+                                                </td>
+                                                <td>
+                                                    <%= post.updatedAt %>
+                                                </td>
+                                                <td>
+                                                    <a href="/admin/home/edit/<%= post.id %>"
+                                                        class="btn btn-primary">Edit</a>
+                                                    <button href="" class="btn btn-danger post_delete"
+                                                        post_id="<%= post.id %>">Delete</button>
                                                 </td>
                                             </tr>
-                                        <% }); %>
-                                    <% } %>
+                                            <% }); %>
+                                                <% } %>
                                 </tbody>
-                            </table> 
-                            </div>
+                            </table>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    </div>
 </body>
+<script src="/apps/controllers/APIDELETE.js"></script>
+
 
 </html>

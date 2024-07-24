@@ -10,11 +10,11 @@ var connection = mysql.createConnection({
 });
 connection.connect();
 function getConnection(){
-    console.log("get");
+    
     if(!connection){
         connection.connect();
     }
-    // console.log(connection);
+    
     return connection;
 }
 module.exports={
